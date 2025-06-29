@@ -17,9 +17,9 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
 } from "@/components/ui/popover"
 import { Input } from "@/components/ui/input"
 import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form"
@@ -29,12 +29,18 @@ import { Calendar } from "../ui/calendar"
 import { cn } from "@/lib/utils"
 import { CalendarIcon } from "lucide-react"
 import { format } from "date-fns"
+import { useAppDispatch } from "@/redux/hook"
+import { addTask } from "@/redux/tasks/taskSlice"
 
 export function AddTask() {
 
     const form = useForm();
+
+    const dispatch = useAppDispatch();
+
     const onSubmit = (data: any) => {
-        console.log(data)
+        console.log(data);
+        dispatch(addTask(data))
     }
 
     return (

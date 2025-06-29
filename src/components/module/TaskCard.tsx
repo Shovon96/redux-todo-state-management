@@ -14,9 +14,9 @@ export default function TaskCard({ task }: IProps) {
             <div className="flex justify-between items-center">
                 <div className="flex gap-3 items-center">
                     <div className={cn("size-4 rounded-full", {
-                        "bg-green-600": task.priority === "Low",
-                        "bg-yellow-600": task.priority === "Medium",
-                        "bg-red-600": task.priority === "High"
+                        "bg-green-600": task.priority === "low",
+                        "bg-yellow-600": task.priority === "medium",
+                        "bg-red-600": task.priority === "high"
                     })}>
                     </div>
                     <h1>{task.title}</h1>
