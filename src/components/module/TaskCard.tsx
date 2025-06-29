@@ -1,0 +1,34 @@
+import { cn } from "@/lib/utils"
+import type { ITask } from "@/redux/tasks/task.interface"
+import { Button } from "../ui/button"
+import { Checkbox } from "../ui/checkbox"
+
+interface IProps {
+    task: ITask
+}
+
+export default function TaskCard({ task }: IProps) {
+
+    return (
+        <div className="border px-5 py-5 rounded-md">
+            <div className="flex justify-between items-center">
+                <div className="flex gap-3 items-center">
+                    <div className={cn("size-4 rounded-full", {
+                        "bg-green-600": task.priority === "Low",
+                        "bg-yellow-600": task.priority === "Medium",
+                        "bg-red-600": task.priority === "High"
+                    })}>
+                    </div>
+                    <h1>{task.title}</h1>
+                </div>
+                <div className="flex gap-4 items-center">
+                    <Button variant="link" className="p-0 text-red-500">
+                        🗑
+                    </Button>
+                    <Checkbox />
+                </div>
+            </div>
+            <p className="mt-6">{task.description}</p>
+        </div>
+    );
+}
