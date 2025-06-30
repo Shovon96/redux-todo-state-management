@@ -5,10 +5,12 @@ import type { RootState } from "../store";
 
 interface InitialState {
     tasks: ITask[];
+    filter: "all" | "low" | "medium" | "high"
 }
 
 const initialState: InitialState = {
-    tasks: []
+    tasks: [],
+    filter: "all"
 }
 
 const taskSlice = createSlice({
@@ -31,14 +33,26 @@ const taskSlice = createSlice({
         },
         deleteTask: (state, action: PayloadAction<string>) => {
             state.tasks = state.tasks.filter(task => task.id !== action.payload)
+        },
+        updateFilter: (state, action: PayloadAction<"all" | "low" | "medium" | "high">) => {
+            state.filter = action.payload
         }
     }
 })
 
 export const selectTasks = (state: RootState) => {
-    return state.todo.tasks;
+    const filter = state.todo.filter
+    if (filter === "low") {
+        return state.todo.tasks.filter(task => task.priority === "low");
+    } else if (filter === "medium") {
+        return state.todo.tasks.filter(task => task.priority === "medium");
+    } else if (filter === "high") {
+        return state.todo.tasks.filter(task => task.priority === "high");
+    } else {
+        return state.todo.tasks;
+    }
 }
 
-export const { addTask, toggleIsCompleted, deleteTask } = taskSlice.actions
+export const { addTask, toggleIsCompleted, deleteTask, updateFilter } = taskSlice.actions
 
 export default taskSlice.reducer
