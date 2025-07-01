@@ -29,19 +29,19 @@ import { Calendar } from "../ui/calendar"
 import { cn } from "@/lib/utils"
 import { CalendarIcon } from "lucide-react"
 import { format } from "date-fns"
-import { useAppDispatch } from "@/redux/hook"
-import { addTask } from "@/redux/tasks/taskSlice"
+// import { useAppDispatch } from "@/redux/hook"
+// import { addTask } from "@/redux/tasks/taskSlice"
 
 export function AddTask() {
 
     const form = useForm();
 
-    const dispatch = useAppDispatch();
+    // const dispatch = useAppDispatch();
 
-    const onSubmit = (data: any) => {
-        console.log(data);
-        dispatch(addTask(data))
-    }
+    // const onSubmit = (data: any) => {
+    //     console.log(data);
+    //     dispatch(addTask(data))
+    // }
 
     return (
         <Dialog>
@@ -55,7 +55,7 @@ export function AddTask() {
                         <DialogDescription>Please fillup the field and add task</DialogDescription>
                     </DialogHeader>
                     <Form {...form}>
-                        <form onSubmit={form.handleSubmit(onSubmit)}>
+                        <form>
                             <FormField
                                 control={form.control}
                                 name="title"
