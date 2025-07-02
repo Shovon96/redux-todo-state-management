@@ -29,22 +29,33 @@ import { Calendar } from "../ui/calendar"
 import { cn } from "@/lib/utils"
 import { CalendarIcon } from "lucide-react"
 import { format } from "date-fns"
+import { useState } from "react"
+import { useCreateTaskMutation } from "@/redux/api/baseApi"
 // import { useAppDispatch } from "@/redux/hook"
 // import { addTask } from "@/redux/tasks/taskSlice"
 
 export function AddTask() {
 
     const form = useForm();
+    const [open, setOpen] = useState(false);
+    const [createTask, { data, isLoading }] = useCreateTaskMutation();
 
     // const dispatch = useAppDispatch();
 
-    // const onSubmit = (data: any) => {
-    //     console.log(data);
-    //     dispatch(addTask(data))
-    // }
+    const onSubmit = async (data: any) => {
+        // dispatch(addTask(data))
+        const taskData = {
+            ...data,
+            isCompleted: false
+        };
+        const res = await createTask(taskData).unwrap()
+        // console.log(res);
+        setOpen: false;
+        form.reset();
+    }
 
     return (
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
             <form>
                 <DialogTrigger asChild>
                     <Button className="cursor-pointer bg-sky-500 text-white hover:bg-sky-600 hover:text-white">Add Task</Button>
@@ -55,7 +66,7 @@ export function AddTask() {
                         <DialogDescription>Please fillup the field and add task</DialogDescription>
                     </DialogHeader>
                     <Form {...form}>
-                        <form>
+                        <form onSubmit={form.handleSubmit(onSubmit)}>
                             <FormField
                                 control={form.control}
                                 name="title"
